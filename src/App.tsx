@@ -3,11 +3,7 @@ import { supabase } from "./initSupabase";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faRotate, faSpinner } from "@fortawesome/free-solid-svg-icons";
 import twMerge from "./twMerge";
-
-type Email = {
-  created_at: Date;
-  email: string;
-};
+import { Email } from "../types/Email";
 
 function App() {
   const [loadingRows, setLoadingRows] = useState<boolean>(false);
@@ -63,7 +59,10 @@ function App() {
     <div className="relative min-w-full min-h-screen bg-oasis-extra-light dark:bg-oasis-extra-dark">
       <div className="p-4">
         <div className="flex flex-row items-center justify-between mb-2">
-          <a href="https://supabase.com/dashboard/project/ndixenzakynjwwijdjti" className="hover:underline">
+          <a
+            href="https://supabase.com/dashboard/project/ndixenzakynjwwijdjti"
+            className="hover:underline"
+          >
             <h1 className="text-2xl mb-2 dark:text-oasis-green-pastel">
               Oasis Mailing List
             </h1>
