@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { supabase } from "./initSupabase";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faRotate, faSpinner } from "@fortawesome/free-solid-svg-icons";
+import { faDownload, faPlus, faRotate, faSpinner } from "@fortawesome/free-solid-svg-icons";
 import twMerge from "./twMerge";
 import { Email } from "../types/Email";
 
@@ -84,6 +84,15 @@ function App() {
                   loadingRows ? "animate-spin" : ""
                 )}
                 icon={faRotate}
+              />
+            </button>
+            <button onClick={() => {}}>
+              <FontAwesomeIcon
+                className={twMerge(
+                  "text-oasis-green shadow-sm hover:shadow-md hover:bg-oasis-green-pastel transition-all duration-300 bg-oasis-light dark:bg-oasis-dark p-2 rounded-full active:text-oasis-dark h-4 w-4 flex justify-center items-center",
+                  loadingRows ? "animate-spin" : ""
+                )}
+                icon={faDownload}
               />
             </button>
           </div>
