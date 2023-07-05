@@ -60,7 +60,7 @@ function App() {
       <div className="p-4">
         <div className="flex flex-row items-center justify-between mb-2">
           <a
-            href="https://supabase.com/dashboard/project/ndixenzakynjwwijdjti"
+            href="https://supabase.com/dashboard/project/ndixenzakynjwwijdjti/database/tables"
             className="hover:underline"
           >
             <h1 className="text-2xl mb-2 dark:text-oasis-green-pastel">
