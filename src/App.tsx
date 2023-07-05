@@ -1,7 +1,12 @@
 import { useEffect, useState } from "react";
 import { supabase } from "./initSupabase";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faDownload, faPlus, faRotate, faSpinner } from "@fortawesome/free-solid-svg-icons";
+import {
+  faPaperPlane,
+  faPlus,
+  faRotate,
+  faSpinner,
+} from "@fortawesome/free-solid-svg-icons";
 import twMerge from "./twMerge";
 import { Email } from "../types/Email";
 
@@ -49,6 +54,37 @@ function App() {
     }
   };
 
+  const download = () => {
+    const ago = new Date();
+    const dateAgo = ago.setFullYear(ago.getFullYear() - 3);
+
+    const out = rows
+      .filter((row: Email) => {
+        console.log(new Date(row.created_at).getTime(), dateAgo);
+        return new Date(row.created_at).getTime() > dateAgo;
+      })
+      .map((row: Email) => row.email)
+      .join(",\n");
+    const file = new File([out], "oasis-contacts.txt", {
+      type: "text/plain",
+    });
+
+    function downloadFile() {
+      const link = document.createElement("a");
+      const url = URL.createObjectURL(file);
+
+      link.href = url;
+      link.download = file.name;
+      document.body.appendChild(link);
+      link.click();
+
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+    }
+
+    downloadFile();
+  };
+
   useEffect(() => {
     setLoadingRows(true);
     retrieveAll();
@@ -68,7 +104,7 @@ function App() {
             </h1>
           </a>
           <div className="flex flex-row gap-4">
-            <button onClick={() => setShowModal(true)}>
+            <button title="Insert Row" onClick={() => setShowModal(true)}>
               <FontAwesomeIcon
                 className={twMerge(
                   "text-oasis-green shadow-sm hover:shadow-md hover:bg-oasis-green-pastel transition-all duration-300 bg-oasis-light dark:bg-oasis-dark p-2 rounded-full active:text-oasis-dark h-4 w-4 flex justify-center items-center",
@@ -77,7 +113,7 @@ function App() {
                 icon={faPlus}
               />
             </button>
-            <button onClick={() => retrieveAll()}>
+            <button title="Reload" onClick={() => retrieveAll()}>
               <FontAwesomeIcon
                 className={twMerge(
                   "text-oasis-green shadow-sm hover:shadow-md hover:bg-oasis-green-pastel transition-all duration-300 bg-oasis-light dark:bg-oasis-dark p-2 rounded-full active:text-oasis-dark h-4 w-4 flex justify-center items-center",
@@ -86,13 +122,13 @@ function App() {
                 icon={faRotate}
               />
             </button>
-            <button onClick={() => {}}>
+            <button title="Download" onClick={() => download()}>
               <FontAwesomeIcon
                 className={twMerge(
                   "text-oasis-green shadow-sm hover:shadow-md hover:bg-oasis-green-pastel transition-all duration-300 bg-oasis-light dark:bg-oasis-dark p-2 rounded-full active:text-oasis-dark h-4 w-4 flex justify-center items-center",
                   loadingRows ? "animate-spin" : ""
                 )}
-                icon={faDownload}
+                icon={faPaperPlane}
               />
             </button>
           </div>
@@ -111,35 +147,45 @@ function App() {
               </tr>
             </thead>
             <tbody>
-              {rows.map((e: Email, i: number) => (
-                <tr
-                  className="bg-white border-b dark:bg-gray-900 dark:border-gray-700"
-                  key={i}
-                >
-                  <th className="px-6 py-4 text-gray-900">{e.email}</th>
-                  <td
-                    scope="row"
-                    className="px-6 py-4 font-medium whitespace-nowrap dark:text-white"
+              {rows
+                .sort((lhs: Email, rhs: Email) => {
+                  if (lhs.created_at < rhs.created_at) {
+                    return 1;
+                  } else if (lhs.created_at == rhs.created_at) {
+                    return 1;
+                  } /* lhs.created_at > rhs.created_at */ else {
+                    return -1;
+                  }
+                })
+                .map((e: Email, i: number) => (
+                  <tr
+                    className="bg-white border-b dark:bg-gray-900 dark:border-gray-700"
+                    key={i}
                   >
-                    {e.created_at.toLocaleString()}
-                  </td>
-                  <td className="px-6 py-4">
-                    <button
-                      onClick={() => removeEmail(e)}
-                      className="font-medium text-red-300 hover:text-red-500 hover:underline transition-all duration-300"
+                    <th className="px-6 py-4 text-gray-900">{e.email}</th>
+                    <td
+                      scope="row"
+                      className="px-6 py-4 font-medium whitespace-nowrap dark:text-white"
                     >
-                      Remove
-                    </button>
-                  </td>
-                </tr>
-              ))}
+                      {e.created_at.toLocaleString()}
+                    </td>
+                    <td className="px-6 py-4">
+                      <button
+                        onClick={() => removeEmail(e)}
+                        className="font-medium text-red-300 hover:text-red-500 hover:underline transition-all duration-300"
+                      >
+                        Remove
+                      </button>
+                    </td>
+                  </tr>
+                ))}
             </tbody>
           </table>
         </div>
       </div>
       <div
         className={twMerge(
-          "absolute flex items-center justify-center top-0 bottom-0 left-0 right-0 bg-oasis-gray bg-opacity-25",
+          "fixed flex items-center justify-center top-0 left-0 w-screen h-screen bg-oasis-gray bg-opacity-25",
           showModal ? "" : "hidden"
         )}
       >
