@@ -37,7 +37,9 @@ export default function Editor({ content, setContent }: Props) {
   return (
     <div className="flex flex-col gap-4">
       {content.length > 0
-        ? content.map((content: Content, i) => renderEditor(content, i))
+        ? content.map((content: Content, i) => (
+            <div key={i}>{renderEditor(content, i)}</div>
+          ))
         : empty}
     </div>
   );

@@ -2,6 +2,7 @@ import twMerge from "./twMerge";
 import Alignment from "./types/Alignment";
 import Content from "./types/Content";
 import ContentType from "./types/ContentType";
+import { Email } from "./types/Email";
 
 const oasisGreen = "rgb(57 115 103)";
 const oasisGray = "rgb(110 126 133)";
@@ -9,6 +10,37 @@ const oasisYellow = "rgb(240 194 55)";
 const oasisExtraLight = "rgb(255, 255, 255)";
 const oasisBlue = "rgb(0 38 66)";
 const oasisLight = "rgb(236, 240, 241)";
+
+export const downloadMailingList = (rows: Email[]) => {
+  const ago = new Date();
+  const dateAgo = ago.setFullYear(ago.getFullYear() - 3);
+
+  const out = rows
+    .filter((row: Email) => {
+      console.log(new Date(row.created_at).getTime(), dateAgo);
+      return new Date(row.created_at).getTime() > dateAgo;
+    })
+    .map((row: Email) => row.email)
+    .join(",\n");
+  const file = new File([out], "oasis-contacts.txt", {
+    type: "text/plain",
+  });
+
+  function downloadFile() {
+    const link = document.createElement("a");
+    const url = URL.createObjectURL(file);
+
+    link.href = url;
+    link.download = file.name;
+    document.body.appendChild(link);
+    link.click();
+
+    document.body.removeChild(link);
+    window.URL.revokeObjectURL(url);
+  }
+
+  downloadFile();
+};
 
 export const renderHeader = (
   c: Content,
