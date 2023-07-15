@@ -1,7 +1,7 @@
-import ListViewer from "./ListViewer";
+import MailBuilder from "./components/MailBuilder";
 
 function App() {
-  return <><ListViewer /></>;
+  return <MailBuilder />;
 }
 
 export default App;

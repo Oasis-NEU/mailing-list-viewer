@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import { supabase } from "./initSupabase";
+import { supabase } from "../../initSupabase";
 import { faPlus, faRotate, faPaperPlane, faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Email } from "../types/Email";
-import twMerge from "./twMerge";
+import { Email } from "../../types/Email";
+import twMerge from "../../twMerge";
+import "./ListViewer.css"
 
 export default function ListViewer() {
    const [loadingRows, setLoadingRows] = useState<boolean>(false);
@@ -89,7 +90,7 @@ export default function ListViewer() {
    return (
      <div className="relative min-w-full min-h-screen bg-oasis-extra-light dark:bg-oasis-extra-dark">
        <div className="p-4">
-         <div className="flex flex-row items-center justify-between mb-2">
+         <div className="flex flex-row items-center justify-between mb-2 sticky top-0">
            <a
              href="https://supabase.com/dashboard/project/ndixenzakynjwwijdjti/database/tables"
              className="hover:underline"

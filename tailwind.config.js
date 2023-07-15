@@ -3,6 +3,9 @@ module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
+      screens: {
+        xs: "480px",
+      },
       colors: {
         "oasis-yellow": "#f0c237",
         "oasis-yellow-pastel": "#f2d16b",
