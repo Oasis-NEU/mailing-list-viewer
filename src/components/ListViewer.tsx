@@ -12,18 +12,16 @@ import twMerge from "../twMerge";
 import { downloadMailingList } from "../utils";
 
 interface Props {
-  rows: Email[]
+  rows: Email[];
   loadingRows: boolean;
-  retrieveAll: () => {}
+  retrieveAll: () => {};
 }
 
-export default function ListViewer({rows, loadingRows, retrieveAll}: Props) {
-
+export default function ListViewer({ rows, loadingRows, retrieveAll }: Props) {
   const [loadingInsert, setLoadingInsert] = useState<boolean>(false);
   const [showModal, setShowModal] = useState<boolean>(false);
-  
+
   const [newEmail, setNewEmail] = useState<string>("");
-  
 
   const handleInsertRow = () => {
     setLoadingInsert(true);
@@ -34,8 +32,6 @@ export default function ListViewer({rows, loadingRows, retrieveAll}: Props) {
     setShowModal(false);
     setNewEmail("");
   };
-
-  
 
   const insertRow = async () => {
     const { data, error } = await supabase
@@ -60,22 +56,20 @@ export default function ListViewer({rows, loadingRows, retrieveAll}: Props) {
   };
 
   return (
-    <div className="relative min-w-full min-h-screen bg-oasis-extra-light dark:bg-oasis-extra-dark">
+    <div className="relative min-w-full min-h-screen bg-oasis-extra-light ">
       <div className="p-4">
         <div className="flex flex-row items-center justify-between mb-2 sticky top-0">
           <a
             href="https://supabase.com/dashboard/project/ndixenzakynjwwijdjti/database/tables"
             className="hover:underline"
           >
-            <h1 className="text-2xl mb-2 dark:text-oasis-green-pastel">
-              Oasis Mailing List
-            </h1>
+            <h1 className="text-2xl mb-2 ">Oasis Mailing List</h1>
           </a>
           <div className="flex flex-row gap-4">
             <button title="Insert Row" onClick={() => setShowModal(true)}>
               <FontAwesomeIcon
                 className={twMerge(
-                  "text-oasis-green shadow-sm hover:shadow-md hover:bg-oasis-green-pastel transition-all duration-300 bg-oasis-light dark:bg-oasis-dark p-2 rounded-full active:text-oasis-dark h-4 w-4 flex justify-center items-center",
+                  "text-oasis-green shadow-sm hover:shadow-md hover:bg-oasis-green-pastel transition-all duration-300 bg-oasis-light  p-2 rounded-full active:text-oasis-dark h-4 w-4 flex justify-center items-center",
                   loadingRows ? "animate-spin" : ""
                 )}
                 icon={faPlus}
@@ -84,7 +78,7 @@ export default function ListViewer({rows, loadingRows, retrieveAll}: Props) {
             <button title="Reload" onClick={() => retrieveAll()}>
               <FontAwesomeIcon
                 className={twMerge(
-                  "text-oasis-green shadow-sm hover:shadow-md hover:bg-oasis-green-pastel transition-all duration-300 bg-oasis-light dark:bg-oasis-dark p-2 rounded-full active:text-oasis-dark h-4 w-4 flex justify-center items-center",
+                  "text-oasis-green shadow-sm hover:shadow-md hover:bg-oasis-green-pastel transition-all duration-300 bg-oasis-light  p-2 rounded-full active:text-oasis-dark h-4 w-4 flex justify-center items-center",
                   loadingRows ? "animate-spin" : ""
                 )}
                 icon={faRotate}
@@ -93,7 +87,7 @@ export default function ListViewer({rows, loadingRows, retrieveAll}: Props) {
             <button title="Download" onClick={() => download()}>
               <FontAwesomeIcon
                 className={twMerge(
-                  "text-oasis-green shadow-sm hover:shadow-md hover:bg-oasis-green-pastel transition-all duration-300 bg-oasis-light dark:bg-oasis-dark p-2 rounded-full active:text-oasis-dark h-4 w-4 flex justify-center items-center",
+                  "text-oasis-green shadow-sm hover:shadow-md hover:bg-oasis-green-pastel transition-all duration-300 bg-oasis-light  p-2 rounded-full active:text-oasis-dark h-4 w-4 flex justify-center items-center",
                   loadingRows ? "animate-spin" : ""
                 )}
                 icon={faPaperPlane}
@@ -102,8 +96,8 @@ export default function ListViewer({rows, loadingRows, retrieveAll}: Props) {
           </div>
         </div>
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-          <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-            <thead className="text-xs text-gray-700 uppercase font-bold bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+          <table className="w-full text-sm text-left text-gray-500 ">
+            <thead className="text-xs text-gray-700 uppercase font-bold bg-gray-50  ">
               <tr>
                 <th scope="col" className="px-6 py-3">
                   Email
@@ -126,14 +120,11 @@ export default function ListViewer({rows, loadingRows, retrieveAll}: Props) {
                   }
                 })
                 .map((e: Email, i: number) => (
-                  <tr
-                    className="bg-white border-b dark:bg-gray-900 dark:border-gray-700"
-                    key={i}
-                  >
+                  <tr className="bg-white border-b  " key={i}>
                     <th className="px-6 py-4 text-gray-900">{e.email}</th>
                     <td
                       scope="row"
-                      className="px-6 py-4 font-medium whitespace-nowrap dark:text-white"
+                      className="px-6 py-4 font-medium whitespace-nowrap "
                     >
                       {e.created_at.toLocaleString()}
                     </td>
@@ -157,7 +148,7 @@ export default function ListViewer({rows, loadingRows, retrieveAll}: Props) {
           showModal ? "" : "hidden"
         )}
       >
-        <div className="bg-oasis-extra-light dark:bg-oasis-extra-dark rounded-md shadow-xl flex flex-col w-full max-w-sm">
+        <div className="bg-oasis-extra-light  rounded-md shadow-xl flex flex-col w-full max-w-sm">
           <div className="flex flex-row gap-2 p-4">
             <div className="">
               <FontAwesomeIcon
@@ -167,9 +158,7 @@ export default function ListViewer({rows, loadingRows, retrieveAll}: Props) {
             </div>
             <div className="w-full">
               <div className="pr-4">
-                <h3 className="mt-1 text-oasis-blue dark:text-oasis-yellow-pastel">
-                  Insert Email
-                </h3>
+                <h3 className="mt-1 text-oasis-blue ">Insert Email</h3>
                 <input
                   onKeyDown={(e) => {
                     if (e.key === "Enter") {
@@ -180,18 +169,18 @@ export default function ListViewer({rows, loadingRows, retrieveAll}: Props) {
                   value={newEmail}
                   onChange={(e) => setNewEmail(e.target.value)}
                   placeholder="oasisneu@gmail.com"
-                  className="p-2 bg-oasis-extra-light rounded-lg ring-2 mt-2 w-full outline-oasis-yellow ring-oasis-yellow-pastel ring-opacity-50 dark:bg-oasis-dark dark:text-oasis-light"
+                  className="p-2 bg-oasis-extra-light rounded-lg ring-2 mt-2 w-full outline-oasis-yellow ring-oasis-yellow-pastel ring-opacity-50 "
                 />
               </div>
             </div>
           </div>
-          <div className="bg-oasis-light dark:bg-oasis-dark p-4 flex flex-row justify-end gap-4">
+          <div className="bg-oasis-light  p-4 flex flex-row justify-end gap-4">
             <button
-              className="bg-oasis-yellow-pastel dark:bg-oasis-green dark:hover:bg-oasis-blue hover:bg-oasis-yellow p-2 px-4 rounded-md shadow-sm transition-all duration-300"
+              className="bg-oasis-yellow-pastel  hover:bg-oasis-yellow p-2 px-4 rounded-md shadow-sm transition-all duration-300"
               onClick={() => handleInsertRow()}
             >
               <div className="relative">
-                <div className="flex flex-row items-center justify-center dark:text-oasis-light">
+                <div className="flex flex-row items-center justify-center ">
                   Insert
                 </div>
                 <div
@@ -207,7 +196,7 @@ export default function ListViewer({rows, loadingRows, retrieveAll}: Props) {
             <button
               onClick={() => setShowModal(false)}
               type="button"
-              className="hover:text-oasis-blue dark:hover:text-oasis-light text-oasis-gray transition-all duration-300"
+              className="hover:text-oasis-blue  text-oasis-gray transition-all duration-300"
             >
               Cancel
             </button>

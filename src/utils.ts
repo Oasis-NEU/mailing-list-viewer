@@ -171,7 +171,7 @@ export function exportBuild(c: Content[], bgGreen: boolean): string {
   return (
     '<!DOCTYPE html><meta http-equiv="Content-Type" content="text/html charset=UTF-8" /><html><head><style>a {color: ' +
     oasisGreen +
-    '; font-weight: bold; font-style: italic;} table { border-collapse: collapse; }</style></head><body style="max-width: 600px; width: 100%; margin: 0px; font-family: sans-serif;">' +
+    '; font-weight: bold; font-style: italic; text-decoration: underline;} table { border-collapse: collapse; }</style></head><body style="max-width: 600px; width: 100%; margin: 0px; font-family: sans-serif;">' +
     buildContent(c, bgGreen) +
     "</body></html>"
   );
