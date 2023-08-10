@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
 import parse from "html-react-parser";
-import sanitizeHtml from "sanitize-html";
 import useLocalStorageState from "use-local-storage-state";
 import {
   faHammer,
