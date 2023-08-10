@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import parse from "html-react-parser";
+import sanitizeHtml from "sanitize-html";
 import useLocalStorageState from "use-local-storage-state";
 import {
   faHammer,
@@ -20,6 +21,7 @@ import ListViewer from "./ListViewer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Email } from "../types/Email";
 import { supabase } from "../initSupabase";
+import { ErrorBoundary } from "react-error-boundary";
 
 export default function MailBuilder() {
   const [loadingRows, setLoadingRows] = useState<boolean>(false);
@@ -149,7 +151,16 @@ export default function MailBuilder() {
         </div>
         <div className={twMerge("flex flex-col items-center py-8")}>
           <div className="shadow-xl">
-            {parse(exportBuild(content, bgGreen))}
+            <ErrorBoundary
+              fallback={
+                <div className="flex flex-col gap-2">
+                  <p>Unable to load. Invalid content. Fix the HTML error and click Refresh.</p>
+                  <button className="p-1 rounded-md bg-oasis-blue text-white" onClick={() => window.location.reload()}>Refresh</button>
+                </div>
+              }
+            >
+              {parse(exportBuild(content, bgGreen))}
+            </ErrorBoundary>
           </div>
         </div>
       </div>

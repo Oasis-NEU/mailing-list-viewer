@@ -106,7 +106,7 @@ style="' +
 */
 
 export const renderImage = (c: Content, i: number): string =>
-  '<table style="width: 100%;"><tr><td style="text-align: center;"><img style="margin: auto auto auto auto; max-height: 12rem; ' +
+  '<table style="width: 100%;"><tr><td style="text-align: center;"><img alt="oasis graphic" style="margin: auto auto auto auto; max-height: 12rem; ' +
   (c.shadow ? "box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);" : "") +
   '" src=' +
   c.body +
@@ -140,9 +140,9 @@ function buildContentItem(c: Content, i: number, bgGreen: boolean): string {
 
 export function buildContent(c: Content[], bgGreen: boolean): string {
   return (
-    '<center><table border="0" height="100%" width="600px"><tr style="background-color: ' +
+    '<table style="border: none; height: 100%; width: 600px;"><tr style="background-color: ' +
     (bgGreen ? oasisGreen : oasisYellow) +
-    ';"><td style="text-align: center;"><img src="https://i.imgur.com/EFgQitP.png" alt="Oasis Logo" style="height: 8rem; margin: auto auto auto auto;" /></td></tr><tr style=""><td border="0" style="color: ' +
+    ';"><td style="text-align: center;"><img src="https://i.imgur.com/EFgQitP.png" alt="Oasis Logo" style="height: 8rem; margin: auto auto auto auto;" /></td></tr><tr style=""><td style="color: ' +
     oasisBlue +
     "; background-color: " +
     oasisLight +
@@ -150,7 +150,7 @@ export function buildContent(c: Content[], bgGreen: boolean): string {
     c.map((c, i) => buildContentItem(c, i, bgGreen)).join("\n") +
     '</td></tr><tr style="background-color: ' +
     (bgGreen ? oasisGreen : oasisYellow) +
-    ';"><td border="0px" style="height: 12rem; color: ' +
+    ';"><td style="height: 12rem; color: ' +
     oasisLight +
     ';"><p style="' +
     twMerge(
@@ -163,13 +163,13 @@ export function buildContent(c: Content[], bgGreen: boolean): string {
       "color: " + oasisLight + ";",
       "font-style: italic; text-decoration-line: underline;"
     ) +
-    '">click here</a> to unsubscribe.<br/></p></td></tr></table></center>'
+    '">click here</a> to unsubscribe.<br/></p></td></tr></table>'
   );
 }
 
 export function exportBuild(c: Content[], bgGreen: boolean): string {
   return (
-    '<!DOCTYPE html><meta http-equiv="Content-Type" content="text/html charset=UTF-8" /><html><head><style>a {color: ' +
+    '<!DOCTYPE html><meta http-equiv="Content-Type" content="text/html" charset="UTF-8" /><html><head><title>Oasis Email</title><style>a {color: ' +
     oasisGreen +
     '; font-weight: bold; font-style: italic; text-decoration: underline;} table { border-collapse: collapse; }</style></head><body style="max-width: 600px; width: 100%; margin: 0px; font-family: sans-serif;">' +
     buildContent(c, bgGreen) +
@@ -197,3 +197,9 @@ export function createDownload(content: Content[], bgGreen: boolean) {
 
   download();
 }
+
+export function isValidHTML(html: string): boolean {
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(html, "text/xml");
+  return doc.documentElement.querySelector("parsererror") === null;
+};

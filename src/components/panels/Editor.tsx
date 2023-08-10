@@ -34,6 +34,8 @@ export default function Editor({ content, setContent }: Props) {
     </div>
   );
 
+  
+
   return (
     <div className="flex flex-col gap-4">
       {content.length > 0
