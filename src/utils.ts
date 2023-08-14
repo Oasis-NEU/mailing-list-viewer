@@ -75,32 +75,32 @@ export const sanitizeDestination = (input: string) => {
   ) {
     return input;
   } else if (input.substring(0, www.length) === www) {
-    console.log(https + input)
     return https + input;
   } else {
-    console.log(https + www + input)
     return https + www + input;
   }
 };
 
 export const renderButton = (c: Content, i: number): string => {
   return (
-    '<table style="width: 100%;"><tr><td style="text-align: ' +
+    '<table style="width: 100%; margin-top: 1.5rem; margin-bottom: 2rem;"><tr><td style="text-align: ' +
     (c.alignment === Alignment.CENTER ? "center" : "left") +
     ';"><a style="' +
     twMerge(
-      "margin-top: 0.5rem; margin-bottom: 0.5rem !important;",
-      "background-color: " + oasisYellow + " !important;",
-      "color: " + oasisExtraLight + " !important;",
-      "font-weight: 700 !important;",
-      "text-decoration-line: none !important;",
-      "padding: 0.75rem !important;",
-      "border-radius: 0.375rem !important;",
-      "box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.1) !important;"
+      "margin-top: 0.5rem; margin-bottom: 0.5rem;",
+      "background-color: " + oasisYellow + ";",
+      "color: " + oasisExtraLight + ";",
+      "font-weight: 700;",
+      "text-decoration-line: none;",
+      "padding: 0.75rem;",
+      "border-radius: 0.375rem;",
+      "box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.1);"
     ) +
     '" href="' +
     sanitizeDestination(c.dest ?? "") +
-    '">' + c.body +'</a></td></tr></table>'
+    '">' +
+    c.body +
+    "</a></td></tr></table>"
   );
 };
 
@@ -170,7 +170,9 @@ export function exportBuild(c: Content[], bgGreen: boolean): string {
   return (
     '<!DOCTYPE html><meta http-equiv="Content-Type" content="text/html" charset="UTF-8" /><html><head><title>Oasis Email</title><style>a {color: ' +
     oasisGreen +
-    '; font-weight: bold; font-style: italic; text-decoration: underline;} table { border-collapse: collapse; }</style></head><body style="max-width: 600px; width: 100%; margin: 0px; font-family: sans-serif;">' +
+    '; font-weight: bold; font-style: italic; text-decoration: underline;} table { border-collapse: collapse; } td > a { margin-top: 1rem; margin-bottom: 0.5rem; background-color: "' +
+    oasisYellow +
+    '"; color: " + oasisExtraLight + "; font-weight: 700; text-decoration-line: none; padding: 0.75rem; border-radius: 0.375rem; box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.1); }</style></head><body style="max-width: 600px; width: 100%; margin: 0px; font-family: sans-serif;">' +
     buildContent(c, bgGreen) +
     "</body></html>"
   );
@@ -195,10 +197,4 @@ export function createDownload(content: Content[], bgGreen: boolean) {
   }
 
   download();
-}
-
-export function isValidHTML(html: string): boolean {
-  const parser = new DOMParser();
-  const doc = parser.parseFromString(html, "text/xml");
-  return doc.documentElement.querySelector("parsererror") === null;
 }
