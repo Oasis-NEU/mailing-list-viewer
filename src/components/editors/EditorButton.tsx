@@ -3,7 +3,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import twMerge from "../../twMerge";
 import Alignment from "../../types/Alignment";
 import Content from "../../types/Content";
-import { useEffect } from "react";
 
 type Props = {
   content: Content[];

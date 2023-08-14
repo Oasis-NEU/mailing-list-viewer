@@ -36,7 +36,7 @@ export default function ListViewer({ rows, loadingRows, retrieveAll }: Props) {
   const insertRow = async () => {
     const { data, error } = await supabase
       .from("emails")
-      .insert([{ email: newEmail }])
+      .insert([{ email: newEmail, source: "manual" }])
       .select();
   };
 

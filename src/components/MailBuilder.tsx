@@ -153,8 +153,16 @@ export default function MailBuilder() {
             <ErrorBoundary
               fallback={
                 <div className="flex flex-col gap-2">
-                  <p>Unable to load. Invalid content. Fix the HTML error and click Refresh.</p>
-                  <button className="p-1 rounded-md bg-oasis-blue text-white" onClick={() => window.location.reload()}>Refresh</button>
+                  <p>
+                    Unable to load. Invalid content. Fix the HTML error and
+                    click Refresh.
+                  </p>
+                  <button
+                    className="p-1 rounded-md bg-oasis-blue text-white"
+                    onClick={() => window.location.reload()}
+                  >
+                    Refresh
+                  </button>
                 </div>
               }
             >
