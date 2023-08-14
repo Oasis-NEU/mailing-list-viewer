@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import twMerge from "../../twMerge";
 import Alignment from "../../types/Alignment";
 import Content from "../../types/Content";
+import { useEffect } from "react";
 
 type Props = {
   content: Content[];
@@ -11,6 +12,7 @@ type Props = {
 };
 
 export default function EditorButton({ content, setContent, i }: Props) {
+
   return (
     <div className="w-full flex flex-row gap-2 ">
       <div className="flex flex-row  gap-2 flex-1">

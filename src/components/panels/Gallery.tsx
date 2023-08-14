@@ -202,7 +202,7 @@ export default function Gallery({
           },
           {
             contentType: ContentType.Paragraph,
-            body: "Follow us on Instagram <a href='instagram.com/oasisneu'>@oasisneu</a> or check <a href='oasisneu.com'>oasisneu.com</a> to keep up with the latest updates.",
+            body: "Follow us on Instagram <a href='https://www.instagram.com/oasisneu'>@oasisneu</a> or check <a href='https://www.oasisneu.com'>oasisneu.com</a> to keep up with the latest updates.",
             alignment: Alignment.CENTER,
           }
         );

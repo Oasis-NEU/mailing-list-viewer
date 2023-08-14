@@ -64,46 +64,45 @@ export const renderHeader = (
     "</h1>"
   );
 };
-export const renderButton = (c: Content, i: number): string => {
-  return (
-    '<div style="' +
-    twMerge(
-      "display: flex; flex-direction: row;",
-      c.alignment === Alignment.LEFT
-        ? "justify-content: flex-start;"
-        : "justify-content: center;"
-    ) +
-    '">' +
-    '<a style="' +
-    twMerge(
-      "margin-top: 0.5rem; margin-bottom: 0.5rem;",
-      "background-color: " + oasisYellow + ";",
-      "color: " + oasisExtraLight + ";",
-      "font-weight: 700;",
-      "text-decoration-line: none;",
-      "padding: 0.75rem;",
-      "border-radius: 0.375rem;",
-      "box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.1);"
-    ) +
-    '" href="' +
-    c.dest +
-    '">' +
-    c.body +
-    "</a></div>"
-  );
+
+export const sanitizeDestination = (input: string) => {
+  const https = "https://";
+  const www = "www.";
+
+  if (
+    input.substring(0, https.length) === https &&
+    input.substring(https.length, www.length)
+  ) {
+    return input;
+  } else if (input.substring(0, www.length) === www) {
+    console.log(https + input)
+    return https + input;
+  } else {
+    console.log(https + www + input)
+    return https + www + input;
+  }
 };
 
-/*
-
-style="' +
-  twMerge(
-    "margin-top: 2rem; margin-bottom: 2rem;",
-    c.alignment === Alignment.CENTER
-      ? "margin-left: auto; margin-right: auto;"
-      : ""
-  ) +
-  '"
-*/
+export const renderButton = (c: Content, i: number): string => {
+  return (
+    '<table style="width: 100%;"><tr><td style="text-align: ' +
+    (c.alignment === Alignment.CENTER ? "center" : "left") +
+    ';"><a style="' +
+    twMerge(
+      "margin-top: 0.5rem; margin-bottom: 0.5rem !important;",
+      "background-color: " + oasisYellow + " !important;",
+      "color: " + oasisExtraLight + " !important;",
+      "font-weight: 700 !important;",
+      "text-decoration-line: none !important;",
+      "padding: 0.75rem !important;",
+      "border-radius: 0.375rem !important;",
+      "box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.1) !important;"
+    ) +
+    '" href="' +
+    sanitizeDestination(c.dest ?? "") +
+    '">' + c.body +'</a></td></tr></table>'
+  );
+};
 
 export const renderImage = (c: Content, i: number): string =>
   '<table style="width: 100%;"><tr><td style="text-align: center;"><img alt="oasis graphic" style="margin: auto auto auto auto; max-height: 12rem; ' +
@@ -158,7 +157,7 @@ export function buildContent(c: Content[], bgGreen: boolean): string {
       "text-align: center;",
       "max-width: 480px;"
     ) +
-    '">Oasis is a proud participant in the Khoury College of Computer Sciences community at Northeastern University in Boston, MA.<br/><br/> If you\'d like to stop receiving emails, <a href="https://oasisneu.com/unsubscribe" style="' +
+    '">Oasis is a proud participant in the Khoury College of Computer Sciences community at Northeastern University in Boston, MA.<br/><br/> If you\'d like to stop receiving emails, <a href="https://www.oasisneu.com/unsubscribe" style="' +
     twMerge(
       "color: " + oasisLight + ";",
       "font-style: italic; text-decoration-line: underline;"
@@ -202,4 +201,4 @@ export function isValidHTML(html: string): boolean {
   const parser = new DOMParser();
   const doc = parser.parseFromString(html, "text/xml");
   return doc.documentElement.querySelector("parsererror") === null;
-};
+}

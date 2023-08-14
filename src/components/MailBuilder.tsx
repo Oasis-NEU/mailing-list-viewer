@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import parse from "html-react-parser";
 import useLocalStorageState from "use-local-storage-state";
 import {
@@ -132,7 +132,7 @@ export default function MailBuilder() {
   );
 
   return (
-    <div className="w-full min-h-screen select-none">
+    <div className="w-full min-h-screen">
       {toolbar}
       <div className="flex flex-col xl:flex-row justify-center gap-12">
         {showMailingList && mailingList}
