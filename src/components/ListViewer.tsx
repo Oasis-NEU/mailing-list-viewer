@@ -58,7 +58,7 @@ export default function ListViewer({ rows, loadingRows, retrieveAll }: Props) {
   return (
     <div className="relative min-w-full min-h-screen bg-oasis-extra-light ">
       <div className="p-4">
-        <div className="flex flex-row items-center justify-between mb-2 sticky top-0">
+        <div className="flex flex-row items-center justify-between mb-2 sticky top-2 z-10 bg-oasis-light p-2 shadow-lg rounded-md">
           <a
             href="https://supabase.com/dashboard/project/ndixenzakynjwwijdjti/database/tables"
             className="hover:underline"
@@ -69,7 +69,7 @@ export default function ListViewer({ rows, loadingRows, retrieveAll }: Props) {
             <button title="Insert Row" onClick={() => setShowModal(true)}>
               <FontAwesomeIcon
                 className={twMerge(
-                  "text-oasis-green shadow-sm hover:shadow-md hover:bg-oasis-green-pastel transition-all duration-300 bg-oasis-light  p-2 rounded-full active:text-oasis-dark h-4 w-4 flex justify-center items-center",
+                  "text-oasis-green shadow-sm hover:shadow-md hover:bg-oasis-green-pastel transition-all duration-300 bg-oasis-extra-light  p-2 rounded-full active:text-oasis-dark h-4 w-4 flex justify-center items-center",
                   loadingRows ? "animate-spin" : ""
                 )}
                 icon={faPlus}
@@ -78,7 +78,7 @@ export default function ListViewer({ rows, loadingRows, retrieveAll }: Props) {
             <button title="Reload" onClick={() => retrieveAll()}>
               <FontAwesomeIcon
                 className={twMerge(
-                  "text-oasis-green shadow-sm hover:shadow-md hover:bg-oasis-green-pastel transition-all duration-300 bg-oasis-light  p-2 rounded-full active:text-oasis-dark h-4 w-4 flex justify-center items-center",
+                  "text-oasis-green shadow-sm hover:shadow-md hover:bg-oasis-green-pastel transition-all duration-300 bg-oasis-extra-light  p-2 rounded-full active:text-oasis-dark h-4 w-4 flex justify-center items-center",
                   loadingRows ? "animate-spin" : ""
                 )}
                 icon={faRotate}
@@ -87,7 +87,7 @@ export default function ListViewer({ rows, loadingRows, retrieveAll }: Props) {
             <button title="Download" onClick={() => download()}>
               <FontAwesomeIcon
                 className={twMerge(
-                  "text-oasis-green shadow-sm hover:shadow-md hover:bg-oasis-green-pastel transition-all duration-300 bg-oasis-light  p-2 rounded-full active:text-oasis-dark h-4 w-4 flex justify-center items-center",
+                  "text-oasis-green shadow-sm hover:shadow-md hover:bg-oasis-green-pastel transition-all duration-300 bg-oasis-extra-light  p-2 rounded-full active:text-oasis-dark h-4 w-4 flex justify-center items-center",
                   loadingRows ? "animate-spin" : ""
                 )}
                 icon={faPaperPlane}
@@ -108,7 +108,7 @@ export default function ListViewer({ rows, loadingRows, retrieveAll }: Props) {
                 <th></th>
               </tr>
             </thead>
-            <tbody>
+            <tbody className="">
               {rows
                 .sort((lhs: Email, rhs: Email) => {
                   if (lhs.created_at < rhs.created_at) {
@@ -123,10 +123,9 @@ export default function ListViewer({ rows, loadingRows, retrieveAll }: Props) {
                   <tr className="bg-white border-b  " key={i}>
                     <th className="px-6 py-4 text-gray-900">{e.email}</th>
                     <td
-                      scope="row"
                       className="px-6 py-4 font-medium whitespace-nowrap "
                     >
-                      {e.created_at.toLocaleString()}
+                      {new Date(e.created_at).toDateString()/*.toDateString()*/}
                     </td>
                     <td className="px-6 py-4">
                       <button

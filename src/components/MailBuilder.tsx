@@ -111,6 +111,7 @@ export default function MailBuilder() {
             "flex flex-col items-end justify-center w-full z-50"
           )}
         >
+          
           <button
             onClick={() => setShowMailingList(false)}
             className="flex flex-row  gap-4 justify-center items-center px-4 bg-oasis-green shadow-md hover:shadow-lg rounded-full  w-fit h-10  mb-4 text-oasis-extra-light p-2 text-xl hover:underline transition-all duration-150"
@@ -120,6 +121,7 @@ export default function MailBuilder() {
         </div>
         <div className="w-full overflow-scroll rounded-xl shadow-xl ring-oasis-green ring-2 z-50">
           <div className="">
+            
             <ListViewer
               rows={rows}
               loadingRows={loadingRows}
