@@ -34,7 +34,7 @@ export default function ListViewer({ rows, loadingRows, retrieveAll }: Props) {
   };
 
   const insertRow = async () => {
-    const { data, error } = await supabase
+    await supabase
       .from("emails")
       .insert([{ email: newEmail, source: "manual" }])
       .select();
@@ -113,7 +113,7 @@ export default function ListViewer({ rows, loadingRows, retrieveAll }: Props) {
                 .sort((lhs: Email, rhs: Email) => {
                   if (lhs.created_at < rhs.created_at) {
                     return 1;
-                  } else if (lhs.created_at == rhs.created_at) {
+                  } else if (lhs.created_at === rhs.created_at) {
                     return 1;
                   } /* lhs.created_at > rhs.created_at */ else {
                     return -1;

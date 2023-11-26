@@ -101,7 +101,7 @@ export default function MailBuilder() {
 
   const mailingList = (
     <>
-      <div className="absolute top-0 bottom-0 left-0 right-0 flex flex-col justify-center items-center p-36">
+      <div className="absolute top-0 bottom-0 left-0 right-0 flex flex-col justify-center items-center p-4 pt-8">
         <div
           className="absolute top-0 bottom-0 left-0 right-0 bg-oasis-gray bg-opacity-25 z-10"
           onClick={() => setShowMailingList(false)}
@@ -139,7 +139,7 @@ export default function MailBuilder() {
       <div className="flex flex-col xl:flex-row justify-center gap-12">
         {showMailingList && mailingList}
         <div className={twMerge(showEditor ? "" : "hidden")}>
-          <div className="flex flex-col p-4 pt-0 gap-8 my-16">
+          <div className="flex flex-col p-4 pt-0 gap-8 my-16 w-full">
             <Editor content={content} setContent={setContent} />
             <Divider />
             <Gallery
