@@ -1,4 +1,5 @@
 import Alignment from "../../types/Alignment";
+import { BgColor, nextColor } from "../../types/BgColorType";
 import Content from "../../types/Content";
 import ContentType from "../../types/ContentType";
 import Button from "../Button";
@@ -9,6 +10,7 @@ import {
   faImage,
   faLeftRight,
   faParagraph,
+  faRocket,
   faShuffle,
   faSignature,
   faSquare,
@@ -16,18 +18,19 @@ import {
   faWater,
 } from "@fortawesome/free-solid-svg-icons";
 
+
 type Props = {
   content: Content[];
   setContent: React.Dispatch<React.SetStateAction<Content[]>>;
-  bgGreen: boolean;
-  setBgGreen: React.Dispatch<React.SetStateAction<boolean>>;
+  backgroundColor: BgColor;
+  setBackgroundColor: React.Dispatch<React.SetStateAction<BgColor>>;
 };
 
 export default function Gallery({
   content,
   setContent,
-  bgGreen,
-  setBgGreen,
+  backgroundColor,
+  setBackgroundColor,
 }: Props) {
   const addItem = (...items: Content[]) => {
     setContent([...content, ...items]);
@@ -142,6 +145,19 @@ export default function Gallery({
       icon: faWater,
     },
     {
+      title: "Add Image (Explorer)",
+      action: () => {
+        addItem({
+          contentType: ContentType.Image,
+          body: "https://i.imgur.com/cs1VxpO.png",
+          shadow: true,
+          alignment: Alignment.CENTER,
+        });
+      },
+      body: "Explorer",
+      icon: faRocket,
+    },
+    {
       title: "Add Default Message Setup",
       action: () => {
         addItem(
@@ -178,7 +194,7 @@ export default function Gallery({
           },
           {
             contentType: ContentType.Paragraph,
-            body: "Follow us on Instagram <a href=\"https://www.instagram.com/oasisneu\">@oasisneu</a> or check <a href=\"https://www.oasisneu.com\">oasisneu.com</a> to keep up with the latest updates.",
+            body: 'Follow us on Instagram <a href="https://www.instagram.com/oasisneu">@oasisneu</a> or check <a href="https://www.oasisneu.com">oasisneu.com</a> to keep up with the latest updates.',
             alignment: Alignment.CENTER,
           }
         );
@@ -213,7 +229,8 @@ export default function Gallery({
     {
       title: "Swap Background Color",
       action: () => {
-        setBgGreen(!bgGreen);
+        setBackgroundColor(nextColor(backgroundColor));
+        // console.log(backgroundColor)
       },
       body: "Background",
       icon: faShuffle,

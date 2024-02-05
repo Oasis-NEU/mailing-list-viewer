@@ -21,12 +21,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Email } from "../types/Email";
 import { supabase } from "../initSupabase";
 import { ErrorBoundary } from "react-error-boundary";
+import { BgColor } from "../types/BgColorType";
 
 export default function MailBuilder() {
   const [loadingRows, setLoadingRows] = useState<boolean>(false);
   const [rows, setRows] = useState<Array<Email>>([]);
 
-  const [bgGreen, setBgGreen] = useState<boolean>(true);
+  const [backgroundColor, setBackgroundColor] = useState<BgColor>("green");
   const [content, setContent] = useLocalStorageState<Content[]>(
     "browser-content",
     {
@@ -79,7 +80,7 @@ export default function MailBuilder() {
         </Button>
         <Button
           title={"Build Page"}
-          onClick={() => createDownload(content, bgGreen)}
+          onClick={() => createDownload(content, backgroundColor)}
           icon={faHammer}
         >
           Export
@@ -145,8 +146,8 @@ export default function MailBuilder() {
             <Gallery
               content={content}
               setContent={setContent}
-              bgGreen={bgGreen}
-              setBgGreen={setBgGreen}
+              backgroundColor={backgroundColor}
+              setBackgroundColor={setBackgroundColor}
             />
           </div>
         </div>
@@ -168,7 +169,7 @@ export default function MailBuilder() {
                 </div>
               }
             >
-              {parse(exportBuild(content, bgGreen))}
+              {parse(exportBuild(content, backgroundColor))}
             </ErrorBoundary>
           </div>
         </div>

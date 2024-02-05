@@ -1,5 +1,6 @@
 import twMerge from "./twMerge";
 import Alignment from "./types/Alignment";
+import { BgColor } from "./types/BgColorType";
 import Content from "./types/Content";
 import ContentType from "./types/ContentType";
 import { Email } from "./types/Email";
@@ -10,6 +11,12 @@ const oasisYellow = "rgb(240 194 55)";
 const oasisExtraLight = "rgb(255, 255, 255)";
 const oasisBlue = "rgb(0 38 66)";
 const oasisLight = "rgb(236, 240, 241)";
+// const explorerBlueDark = "#195ba8";
+const explorerBlue = "#0b78b6";
+const explorerBluePastel = "#4dade2";
+// const explorerBlueLight = "#c1ebf4";
+// const explorerOrangePastel = "#f5d88c";
+const explorerOrange = "#ffbc6d";
 
 export const downloadMailingList = (rows: Email[]) => {
   const ago = new Date();
@@ -45,7 +52,7 @@ export const downloadMailingList = (rows: Email[]) => {
 export const renderHeader = (
   c: Content,
   i: number,
-  bgGreen: boolean
+  backgroundColor: BgColor
 ): string => {
   return (
     '<h1 style="' +
@@ -57,7 +64,7 @@ export const renderHeader = (
         ? "text-align: center;"
         : "text-align: left;",
       i === 0 ? "" : "margin-top: 2rem;",
-      bgGreen ? "color: " + oasisGreen + ";" : "color:" + oasisGray + ";"
+      "color: " + colorToHeader(backgroundColor) + ";"
     ) +
     '">' +
     c.body +
@@ -124,10 +131,14 @@ export const renderParagraph = (c: Content, i: number): string =>
   c.body.replace("\n", "<br />") +
   "</p>";
 
-function buildContentItem(c: Content, i: number, bgGreen: boolean): string {
+function buildContentItem(
+  c: Content,
+  i: number,
+  backgroundColor: BgColor
+): string {
   switch (c.contentType) {
     case ContentType.Header:
-      return renderHeader(c, i, bgGreen);
+      return renderHeader(c, i, backgroundColor);
     case ContentType.Button:
       return renderButton(c, i);
     case ContentType.Image:
@@ -137,18 +148,18 @@ function buildContentItem(c: Content, i: number, bgGreen: boolean): string {
   }
 }
 
-export function buildContent(c: Content[], bgGreen: boolean): string {
+export function buildContent(c: Content[], backgroundColor: BgColor): string {
   return (
     '<table style="border: none; height: 100%; width: 600px;"><tr style="background-color: ' +
-    (bgGreen ? oasisGreen : oasisYellow) +
+    colorToBackground(backgroundColor) +
     ';"><td style="text-align: center;"><img src="https://i.imgur.com/EFgQitP.png" alt="Oasis Logo" style="height: 8rem; margin: auto auto auto auto;" /></td></tr><tr style=""><td style="color: ' +
     oasisBlue +
     "; background-color: " +
     oasisLight +
     '; padding: 2rem 2rem 2rem 2rem;">' +
-    c.map((c, i) => buildContentItem(c, i, bgGreen)).join("\n") +
+    c.map((c, i) => buildContentItem(c, i, backgroundColor)).join("\n") +
     '</td></tr><tr style="background-color: ' +
-    (bgGreen ? oasisGreen : oasisYellow) +
+    colorToBackground(backgroundColor) +
     ';"><td style="height: 12rem; color: ' +
     oasisLight +
     ';"><p style="' +
@@ -166,22 +177,26 @@ export function buildContent(c: Content[], bgGreen: boolean): string {
   );
 }
 
-export function exportBuild(c: Content[], bgGreen: boolean): string {
+export function exportBuild(c: Content[], backgroundColor: BgColor): string {
   return (
     '<!DOCTYPE html><meta http-equiv="Content-Type" content="text/html" charset="UTF-8" /><html><head><title>Oasis Email</title><style>a {color: ' +
-    oasisGreen +
+    colorToHeader(backgroundColor) +
     '; font-weight: bold; font-style: italic; text-decoration: underline;} table { border-collapse: collapse; } td > a { margin-top: 1rem; margin-bottom: 0.5rem; background-color: "' +
     oasisYellow +
     '"; color: " + oasisExtraLight + "; font-weight: 700; text-decoration-line: none; padding: 0.75rem; border-radius: 0.375rem; box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.1); }</style></head><body style="max-width: 600px; width: 100%; margin: 0px; font-family: sans-serif;">' +
-    buildContent(c, bgGreen) +
+    buildContent(c, backgroundColor) +
     "</body></html>"
   );
 }
 
-export function createDownload(content: Content[], bgGreen: boolean) {
-  const file = new File([exportBuild(content, bgGreen)], "new-email.html", {
-    type: "text/plain",
-  });
+export function createDownload(content: Content[], backgroundColor: BgColor) {
+  const file = new File(
+    [exportBuild(content, backgroundColor)],
+    "new-email.html",
+    {
+      type: "text/plain",
+    }
+  );
 
   function download() {
     const link = document.createElement("a");
@@ -198,3 +213,29 @@ export function createDownload(content: Content[], bgGreen: boolean) {
 
   download();
 }
+
+const colorToBackground = (bg: BgColor) => {
+  switch (bg) {
+    case "green":
+      return oasisGreen;
+    case "yellow":
+      return oasisYellow;
+    case "orange":
+      return explorerOrange;
+    case "blue":
+      return explorerBluePastel;
+  }
+};
+
+const colorToHeader = (bg: BgColor) => {
+  switch (bg) {
+    case "green":
+      return oasisGreen;
+    case "yellow":
+      return oasisGray;
+    case "orange":
+      return oasisGray;
+    case "blue":
+      return explorerBlue;
+  }
+};
