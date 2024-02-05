@@ -53,7 +53,11 @@ export default function MailBuilder() {
   }, []);
 
   const toolbar = (
-    <div className="sticky top-0 bg-oasis-extra-light p-6 flex flex-row gap-2 justify-between shadow-xl">
+    <div className="sticky top-0 bg-oasis-extra-light p-6 flex flex-row gap-2 justify-between shadow-xl" onKeyDown={(e) => {
+      if (e.key === "Escape") {
+        setShowMailingList(false)
+      }
+    }}>
       <div className="flex flex-row gap-2">
         <Button
           title={"Toggle Editor"}

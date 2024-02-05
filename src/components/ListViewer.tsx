@@ -56,7 +56,7 @@ export default function ListViewer({ rows, loadingRows, retrieveAll }: Props) {
   };
 
   return (
-    <div className="relative min-w-full min-h-screen bg-oasis-extra-light ">
+    <div className="relative min-w-full min-h-screen bg-oasis-extra-light">
       <div className="p-4">
         <div className="flex flex-row items-center justify-between mb-2 sticky top-2 z-10 bg-oasis-light p-2 shadow-lg rounded-md">
           <a
@@ -122,10 +122,12 @@ export default function ListViewer({ rows, loadingRows, retrieveAll }: Props) {
                 .map((e: Email, i: number) => (
                   <tr className="bg-white border-b  " key={i}>
                     <th className="px-6 py-4 text-gray-900">{e.email}</th>
-                    <td
-                      className="px-6 py-4 font-medium whitespace-nowrap "
-                    >
-                      {new Date(e.created_at).toDateString()/*.toDateString()*/}
+                    <td className="px-6 py-4 font-medium whitespace-nowrap ">
+                      {
+                        new Date(
+                          e.created_at
+                        ).toDateString() /*.toDateString()*/
+                      }
                     </td>
                     <td className="px-6 py-4">
                       <button
