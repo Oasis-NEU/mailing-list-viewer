@@ -53,11 +53,14 @@ export default function MailBuilder() {
   }, []);
 
   const toolbar = (
-    <div className="sticky top-0 bg-oasis-extra-light p-6 flex flex-row gap-2 justify-between shadow-xl" onKeyDown={(e) => {
-      if (e.key === "Escape") {
-        setShowMailingList(false)
-      }
-    }}>
+    <div
+      className="sticky top-0 bg-oasis-extra-light p-6 flex flex-row gap-2 justify-between shadow-xl"
+      onKeyDown={(e) => {
+        if (e.key === "Escape") {
+          setShowMailingList(false);
+        }
+      }}
+    >
       <div className="flex flex-row gap-2">
         <Button
           title={"Toggle Editor"}
@@ -116,17 +119,15 @@ export default function MailBuilder() {
             "flex flex-col items-end justify-center w-full z-50"
           )}
         >
-          
           <button
             onClick={() => setShowMailingList(false)}
-            className="flex flex-row  gap-4 justify-center items-center px-4 bg-oasis-green shadow-md hover:shadow-lg rounded-full  w-fit h-10  mb-4 text-oasis-extra-light p-2 text-xl hover:underline transition-all duration-150"
+            className="flex flex-row  gap-4 justify-center items-center px-4 bg-oasis-green shadow-md hover:shadow-lg rounded-full ring-oasis-extra-light ring-2 hover:ring-4 w-fit h-10  mb-4 text-oasis-light p-2 text-xl hover:underline transition-all duration-150"
           >
             Close <FontAwesomeIcon icon={faXmark} />
           </button>
         </div>
         <div className="w-full overflow-scroll rounded-xl shadow-xl ring-oasis-green ring-2 z-50">
           <div className="">
-            
             <ListViewer
               rows={rows}
               loadingRows={loadingRows}
